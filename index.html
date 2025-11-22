@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning Bot - Graphic Arts Business</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 English Learning Bot</h1>
+            <p class="subtitle">Business English for Graphic Arts (A2-B1)</p>
+        </header>
+
+        <nav class="main-nav">
+            <button class="nav-btn active" data-section="vocabulary">📖 Vocabulary</button>
+            <button class="nav-btn" data-section="emails">✉️ Emails</button>
+            <button class="nav-btn" data-section="conversation">🎤 Conversation</button>
+            <button class="nav-btn" data-section="progress">📊 Progress</button>
+        </nav>
+
+        <!-- Vocabulary Section -->
+        <section id="vocabulary" class="content-section active">
+            <h2>Graphic Arts Vocabulary</h2>
+            <div class="vocabulary-categories">
+                <button class="category-btn" data-category="printing">Printing Terms</button>
+                <button class="category-btn" data-category="materials">Materials</button>
+                <button class="category-btn" data-category="processes">Processes</button>
+                <button class="category-btn" data-category="business">Business Terms</button>
+            </div>
+            <div id="vocabulary-content" class="vocab-cards"></div>
+        </section>
+
+        <!-- Email Writing Section -->
+        <section id="emails" class="content-section">
+            <h2>Email Writing Practice</h2>
+            <div class="email-types">
+                <button class="email-type-btn" data-type="inquiry">Price Inquiry</button>
+                <button class="email-type-btn" data-type="order">Purchase Order</button>
+                <button class="email-type-btn" data-type="budget">Budget Request</button>
+                <button class="email-type-btn" data-type="followup">Follow-up</button>
+            </div>
+            
+            <div id="email-exercise" class="email-container">
+                <div class="email-template">
+                    <h3>Template:</h3>
+                    <div id="email-template-text" class="template-box"></div>
+                </div>
+                
+                <div class="email-practice">
+                    <h3>Your Practice:</h3>
+                    <textarea id="email-input" rows="10" placeholder="Write your email here..."></textarea>
+                    <div class="email-actions">
+                        <button id="check-email-btn" class="btn-primary">Check My Email</button>
+                        <button id="speak-email-btn" class="btn-secondary">🔊 Read Aloud</button>
+                    </div>
+                    <div id="email-feedback" class="feedback-box"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conversation Section -->
+        <section id="conversation" class="content-section">
+            <h2>Conversation Practice</h2>
+            <div class="conversation-scenarios">
+                <button class="scenario-btn" data-scenario="greeting">Greeting Visitors</button>
+                <button class="scenario-btn" data-scenario="phone">Phone Calls</button>
+                <button class="scenario-btn" data-scenario="negotiation">Price Negotiation</button>
+                <button class="scenario-btn" data-scenario="informal">Informal Chat</button>
+            </div>
+            
+            <div id="conversation-area" class="conversation-container">
+                <div id="conversation-display" class="conversation-display"></div>
+                
+                <div class="conversation-controls">
+                    <button id="start-listening-btn" class="btn-primary">🎤 Start Speaking</button>
+                    <button id="stop-listening-btn" class="btn-secondary" disabled>⏹️ Stop</button>
+                    <button id="play-prompt-btn" class="btn-secondary">🔊 Repeat Prompt</button>
+                </div>
+                
+                <div id="speech-feedback" class="feedback-box"></div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section id="progress" class="content-section">
+            <h2>Your Progress</h2>
+            <div class="progress-stats">
+                <div class="stat-card">
+                    <h3>Vocabulary</h3>
+                    <p class="stat-number" id="vocab-count">0</p>
+                    <p>words learned</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Emails</h3>
+                    <p class="stat-number" id="email-count">0</p>
+                    <p>emails practiced</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Conversations</h3>
+                    <p class="stat-number" id="conv-count">0</p>
+                    <p>dialogues completed</p>
+                </div>
+            </div>
+            
+            <div class="progress-actions">
+                <button id="reset-progress-btn" class="btn-danger">Reset Progress</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>💡 Tip: Use headphones for better speech recognition | Works on mobile & desktop</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
