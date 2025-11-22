@@ -407,10 +407,18 @@ function showVocabulary(category) {
             <div class="vocab-word">${item.word} ${isLearned ? '✓' : ''}</div>
             <div class="vocab-translation">${item.translation}</div>
             <div class="vocab-example">"${item.example}"</div>
-            <button class="vocab-card-speaker" onclick="speakText('${item.word}. ${item.example}')">
+            <button class="vocab-card-speaker" data-word="${item.word}" data-example="${item.example}">
                 🔊 Listen
             </button>
         `;
+        
+        const speakerBtn = card.querySelector('.vocab-card-speaker');
+        speakerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const word = speakerBtn.dataset.word;
+            const example = speakerBtn.dataset.example;
+            speakText(`${word}. ${example}`);
+        });
         
         card.addEventListener('click', () => {
             appState.progress.vocabLearned.add(wordId);
@@ -627,12 +635,16 @@ function initializeSpeechRecognition() {
 
 function startListening() {
     if (!recognition) {
-        alert('Speech recognition is not available in your browser. Please use Chrome or Edge.');
+        const feedback = document.getElementById('speech-feedback');
+        feedback.className = 'feedback-box show warning';
+        feedback.innerHTML = '<strong>⚠️ Speech recognition is not available in your browser.</strong> Please use Chrome or Edge.';
         return;
     }
     
     if (!appState.currentScenario) {
-        alert('Please select a conversation scenario first!');
+        const feedback = document.getElementById('speech-feedback');
+        feedback.className = 'feedback-box show warning';
+        feedback.innerHTML = '<strong>⚠️ Please select a conversation scenario first!</strong>';
         return;
     }
     
@@ -689,15 +701,14 @@ function speakText(text) {
     synthesis.speak(utterance);
 }
 
-// Make speakText available globally for inline onclick handlers
-window.speakText = speakText;
-
 // ============================================================
 // PROGRESS MANAGEMENT
 // ============================================================
 
 function resetProgress() {
-    if (confirm('Are you sure you want to reset all your progress? This cannot be undone.')) {
+    // Create a custom confirmation dialog
+    const confirmed = confirm('Are you sure you want to reset all your progress? This cannot be undone.');
+    if (confirmed) {
         localStorage.removeItem('englishBotProgress');
         appState.progress = {
             vocabLearned: new Set(),
@@ -705,6 +716,21 @@ function resetProgress() {
             conversationsCompleted: 0
         };
         updateProgressDisplay();
-        alert('Progress has been reset!');
+        
+        // Show success message in a more accessible way
+        const progressSection = document.getElementById('progress');
+        const existingMessage = progressSection.querySelector('.reset-success');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        const successMsg = document.createElement('div');
+        successMsg.className = 'feedback-box show success reset-success';
+        successMsg.innerHTML = '<strong>✓ Progress has been reset successfully!</strong>';
+        progressSection.insertBefore(successMsg, progressSection.querySelector('.progress-stats'));
+        
+        setTimeout(() => {
+            successMsg.remove();
+        }, 3000);
     }
 }
